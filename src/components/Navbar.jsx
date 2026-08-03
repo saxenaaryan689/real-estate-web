@@ -7,7 +7,7 @@ export default function Navbar({ theme, toggleTheme, favoritesCount, notificatio
     <nav className="navbar">
       <div className="nav-brand">
         <Home size={24} />
-        <span>AETHERIA LUXURY HOMES</span>
+        <span className="brand-text">AETHERIA <span className="brand-text-suffix">LUXURY HOMES</span></span>
       </div>
 
       <div className="nav-actions">

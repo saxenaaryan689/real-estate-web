@@ -150,3 +150,20 @@
   cursor: not-allowed;
   transform: none;
 }
+
+@media (max-width: 480px) {
+  .contact-section {
+    padding: 20px 16px;
+    border-radius: 20px;
+  }
+  .contact-info-panel h3 {
+    font-size: 1.4rem;
+  }
+  .contact-desc {
+    margin-bottom: 20px;
+  }
+  .contact-form {
+    padding: 16px;
+    border-radius: 16px;
+  }
+}

@@ -189,3 +189,19 @@
   font-weight: 700;
   color: var(--text-primary);
 }
+
+@media (max-width: 480px) {
+  .calculator-card {
+    padding: 16px;
+  }
+  .calc-row-inputs {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .result-value {
+    font-size: 1.8rem;
+  }
+  .result-main-glow {
+    padding: 16px;
+  }
+}

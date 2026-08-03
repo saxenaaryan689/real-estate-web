@@ -15,12 +15,29 @@
 
 @media (max-width: 768px) {
   .main-content {
-    padding: 20px;
+    padding: 24px;
+  }
+  .welcome-title {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 16px;
+  }
+  .welcome-title {
+    font-size: 1.8rem;
+  }
+  .portfolio-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 }
 
 .welcome-section {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .welcome-title {
@@ -37,7 +54,7 @@
 
 .welcome-subtitle {
   color: var(--text-secondary);
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 

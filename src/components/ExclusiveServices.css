@@ -113,3 +113,18 @@
 .service-card:hover .service-hover-indicator {
   transform: scaleX(1);
 }
+
+@media (max-width: 480px) {
+  .services-section {
+    padding: 24px 16px;
+    border-radius: 20px;
+    margin-top: 32px;
+  }
+  .services-header {
+    margin-bottom: 24px;
+  }
+  .service-card {
+    padding: 16px;
+    border-radius: 16px;
+  }
+}

@@ -212,3 +212,38 @@
   height: 10px;
   border-radius: 50%;
 }
+
+@media (max-width: 480px) {
+  .chart-card {
+    padding: 16px;
+    border-radius: 20px;
+  }
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .chart-metric {
+    font-size: 1.3rem;
+  }
+  .svg-chart-container {
+    height: 180px;
+  }
+  .donut-chart-container {
+    height: auto;
+    padding: 12px 0;
+  }
+  .donut-svg-wrapper {
+    width: 130px;
+    height: 130px;
+  }
+  .donut-center-num {
+    font-size: 1.25rem;
+  }
+  .chart-legends {
+    gap: 8px;
+  }
+  .legend-item {
+    font-size: 0.7rem;
+  }
+}

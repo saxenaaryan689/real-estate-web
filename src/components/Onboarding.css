@@ -227,3 +227,45 @@
 .onboarding-btn:hover svg {
   transform: translateX(4px);
 }
+
+@media (max-width: 600px) {
+  .onboarding-card {
+    padding: 24px 16px;
+    max-width: 100%;
+  }
+  .onboarding-logo {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+  }
+  .onboarding-title {
+    font-size: 1.35rem;
+    margin-bottom: 10px;
+  }
+  .onboarding-desc {
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+  .onboarding-features {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .onboarding-feat-card {
+    padding: 12px;
+  }
+  .onboarding-theme-select {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+    width: 100%;
+  }
+  .theme-opt {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+  }
+  .onboarding-content {
+    min-height: auto;
+    margin-bottom: 24px;
+  }
+}
