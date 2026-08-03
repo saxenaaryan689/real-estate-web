@@ -84,7 +84,7 @@ export function PropertyCard({ property, onFavoriteToggle, isFavorite, onViewDet
           <div className="card-footer">
             <div className="property-price">{formatPrice(property.price)}</div>
             <button className="property-view-btn" onClick={() => onViewDetails(property)}>
-              Details
+              Book Tour
             </button>
           </div>
         </div>

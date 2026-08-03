@@ -5,7 +5,7 @@ import './ChatAssistant.css';
 export default function ChatAssistant({ addToast, onFilterUpdate }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { id: 1, sender: 'bot', text: "Hello! Welcome to Aetheria Estates. I'm your digital concierge. How can I assist you with luxury properties today?" }
+    { id: 1, sender: 'bot', text: "Hello! Welcome to Aetheria Luxury Homes. I'm your digital concierge. How can I assist you with finding your dream property today?" }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);

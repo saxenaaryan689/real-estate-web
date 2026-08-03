@@ -25,14 +25,20 @@
 
 .welcome-title {
   font-family: var(--font-heading);
-  font-size: 2.2rem;
+  font-size: 2.8rem;
   font-weight: 800;
   margin-bottom: 8px;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -1px;
 }
 
 .welcome-subtitle {
   color: var(--text-secondary);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 /* Portfolio Header Actions */

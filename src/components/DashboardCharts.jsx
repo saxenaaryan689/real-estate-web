@@ -46,11 +46,11 @@ export function PriceVelocityChart() {
     <div className="chart-card">
       <div className="chart-header">
         <div className="chart-title-area">
-          <h3>Market Velocity</h3>
-          <span className="chart-subtitle">Index valuation increase (7-month trend)</span>
+          <h3>Market Valuation Trend</h3>
+          <span className="chart-subtitle">Average luxury home values (last 7 months)</span>
           <span className="chart-metric">{formatPrice(2550000)}</span>
         </div>
-        <span className="chart-badge">+12.4% YoY</span>
+        <span className="chart-badge">+12.4% Growth</span>
       </div>
 
       <div className="svg-chart-container">
@@ -146,8 +146,8 @@ export function AssetDistributionChart() {
     <div className="chart-card">
       <div className="chart-header">
         <div className="chart-title-area">
-          <h3>Asset Distribution</h3>
-          <span className="chart-subtitle">Inventory share by tier class</span>
+          <h3>Properties Available</h3>
+          <span className="chart-subtitle">Active premium listings by category</span>
         </div>
       </div>
 

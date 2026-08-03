@@ -5,6 +5,9 @@ import PropertyFilters from './components/PropertyFilters';
 import { PropertyCard, SkeletonCard } from './components/PropertyCard';
 import DashboardCharts from './components/DashboardCharts';
 import ChatAssistant from './components/ChatAssistant';
+import MortgageCalculator from './components/MortgageCalculator';
+import ExclusiveServices from './components/ExclusiveServices';
+import ContactSection from './components/ContactSection';
 import { ToastContainer } from './components/Toast';
 import './App.css';
 
@@ -19,7 +22,7 @@ const INITIAL_PROPERTIES = [
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
-  const [showOnboarding, setShowOnboarding] = useState(true);
+  const [showOnboarding, setShowOnboarding] = useState(false);
   const [properties, setProperties] = useState(INITIAL_PROPERTIES);
   const [favorites, setFavorites] = useState([]);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
@@ -48,10 +51,15 @@ export default function App() {
       const s1 = document.querySelector('.mesh-sphere-1');
       const s2 = document.querySelector('.mesh-sphere-2');
       const s3 = document.querySelector('.mesh-sphere-3');
+      const cubes = document.querySelector('.grid-3d-wireframe');
       
       if (s1) s1.style.transform = `translate(${xPercent}px, ${yPercent}px)`;
       if (s2) s2.style.transform = `translate(${-xPercent * 1.5}px, ${-yPercent * 1.5}px)`;
       if (s3) s3.style.transform = `translate(${xPercent * 0.8}px, ${-yPercent * 0.8}px)`;
+      
+      if (cubes) {
+        cubes.style.transform = `rotateX(${-yPercent * 0.8}deg) rotateY(${xPercent * 0.8}deg)`;
+      }
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -143,11 +151,31 @@ export default function App() {
 
   return (
     <div className="app-layout">
-      {/* 3D background sphere elements */}
+      {/* 3D background sphere & architectural outline elements */}
       <div className="bg-mesh">
         <div className="mesh-sphere mesh-sphere-1"></div>
         <div className="mesh-sphere mesh-sphere-2"></div>
         <div className="mesh-sphere mesh-sphere-3"></div>
+        
+        {/* Interactive 3D Architectural grid structures */}
+        <div className="grid-3d-wireframe">
+          <div className="wireframe-cube cube-1">
+            <div className="face front"></div>
+            <div className="face back"></div>
+            <div className="face right"></div>
+            <div className="face left"></div>
+            <div className="face top"></div>
+            <div className="face bottom"></div>
+          </div>
+          <div className="wireframe-cube cube-2">
+            <div className="face front"></div>
+            <div className="face back"></div>
+            <div className="face right"></div>
+            <div className="face left"></div>
+            <div className="face top"></div>
+            <div className="face bottom"></div>
+          </div>
+        </div>
       </div>
 
       {showOnboarding && (
@@ -177,8 +205,8 @@ export default function App() {
 
       <main className="main-content">
         <div className="welcome-section">
-          <h2 className="welcome-title">Strategic Insights</h2>
-          <p className="welcome-subtitle">Overview of premium portfolio and pricing velocity index.</p>
+          <h2 className="welcome-title">Aetheria Luxury Homes</h2>
+          <p className="welcome-subtitle">Explore elite mansions, penthouses, and properties. Book a private tour today.</p>
         </div>
 
         {/* Custom SVG Data Visualization charts */}
@@ -212,9 +240,9 @@ export default function App() {
                 onViewDetails={(p) => {
                   addToast({
                     id: Date.now(),
-                    type: 'info',
-                    title: p.name,
-                    message: `Price per sqft: $${Math.round(p.price / p.sqft)}`
+                    type: 'success',
+                    title: 'Tour Requested',
+                    message: `Private viewing requested for ${p.name}. A representative will call you shortly.`
                   });
                 }}
               />
@@ -225,6 +253,15 @@ export default function App() {
             </div>
           )}
         </div>
+
+        {/* Dynamic Mortgage Estimator tool */}
+        <MortgageCalculator />
+
+        {/* Signature VIP services */}
+        <ExclusiveServices />
+
+        {/* Contact Inquiry Section */}
+        <ContactSection addToast={addToast} />
       </main>
 
       {/* Floating Chat widget and toast container */}
