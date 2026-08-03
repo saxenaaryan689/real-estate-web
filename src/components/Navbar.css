@@ -36,6 +36,62 @@
   gap: 16px;
 }
 
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
+.nav-link.active {
+  color: var(--accent);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  background: var(--accent-gradient);
+  box-shadow: 0 0 8px var(--accent);
+  border-radius: 2px;
+}
+
+@media (max-width: 900px) {
+  .nav-links {
+    gap: 12px;
+  }
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 6px 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* Hide standard links on very small screen profiles and fall back or stack. Let's make it look premium by displaying them or keeping it clean. Actually, let's keep them displayed as tab icons or simple links, or stack them below. Let's just make it overflow-x scrollable at the bottom of the navbar or shrink their size. Let's display them in a clean row! */
+  }
+}
+
 .nav-action-btn {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-color);

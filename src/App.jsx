@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Compass, TrendingUp, Briefcase, Mail } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Onboarding from './components/Onboarding';
 import PropertyFilters from './components/PropertyFilters';
@@ -29,6 +30,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [toasts, setToasts] = useState([]);
   const [notifications, setNotifications] = useState(3);
+  const [currentPage, setCurrentPage] = useState('explorer');
   
   const [filters, setFilters] = useState({
     search: '',
@@ -41,6 +43,41 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
+
+  // Real-time market simulation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Pick a random property
+      const randomIndex = Math.floor(Math.random() * INITIAL_PROPERTIES.length);
+      const prop = INITIAL_PROPERTIES[randomIndex];
+      
+      // Calculate random price change (-0.5% to +1.5%)
+      const changePercent = (Math.random() * 2 - 0.5) / 100;
+      const priceDiff = Math.round(prop.price * changePercent);
+      
+      setProperties(prevProps => prevProps.map(p => {
+        if (p.id === prop.id) {
+          const newPrice = Math.max(1000000, p.price + priceDiff);
+          return { ...p, price: newPrice };
+        }
+        return p;
+      }));
+
+      // Add a live market toast
+      const isIncrease = priceDiff > 0;
+      addToast({
+        id: Date.now(),
+        type: isIncrease ? 'success' : 'info',
+        title: isIncrease ? 'Live Offer Received' : 'Market Valuation Update',
+        message: `${prop.name} value is now $${(prop.price + priceDiff).toLocaleString()} (${isIncrease ? '+' : ''}${isIncrease ? 'Active Bidding' : 'Stabilized'})`
+      });
+
+      setNotifications(n => n + 1);
+
+    }, 8000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -73,7 +110,7 @@ export default function App() {
       setIsLoading(false);
     }, 600);
     return () => clearTimeout(timer);
-  }, [filters, showFavoritesOnly]);
+  }, [filters, showFavoritesOnly, currentPage]);
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
@@ -148,6 +185,33 @@ export default function App() {
     }
     return true;
   });
+  const getHeaderInfo = () => {
+    switch (currentPage) {
+      case 'analytics':
+        return {
+          title: "Market Valuation Analytics",
+          subtitle: "Live real estate indices, price velocity tracking, and asset allocation spreads."
+        };
+      case 'services':
+        return {
+          title: "VIP Concierge Services",
+          subtitle: "Exclusive access to private aviation, yacht charters, and premium estate management teams."
+        };
+      case 'contact':
+        return {
+          title: "Inquiries & Consultations",
+          subtitle: "Establish direct communication with our private wealth advisors and estate managers."
+        };
+      case 'explorer':
+      default:
+        return {
+          title: "Aetheria Luxury Homes",
+          subtitle: "Explore elite mansions, penthouses, and properties. Book a private tour today."
+        };
+    }
+  };
+
+  const headerInfo = getHeaderInfo();
 
   return (
     <div className="app-layout">
@@ -201,68 +265,109 @@ export default function App() {
         notificationCount={notifications}
         showFavoritesOnly={showFavoritesOnly}
         onShowFavoritesOnly={() => setShowFavoritesOnly(!showFavoritesOnly)}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
 
       <main className="main-content">
         <div className="welcome-section">
-          <h2 className="welcome-title">Aetheria Luxury Homes</h2>
-          <p className="welcome-subtitle">Explore elite mansions, penthouses, and properties. Book a private tour today.</p>
+          <h2 className="welcome-title">{headerInfo.title}</h2>
+          <p className="welcome-subtitle">{headerInfo.subtitle}</p>
         </div>
 
-        {/* Custom SVG Data Visualization charts */}
-        <DashboardCharts />
+        {/* Dynamic Pages */}
+        {currentPage === 'explorer' && (
+          <>
+            <PropertyFilters 
+              filters={filters} 
+              setFilters={setFilters} 
+              onReset={handleResetFilters} 
+            />
 
-        {/* Real-time search filters */}
-        <PropertyFilters 
-          filters={filters} 
-          setFilters={setFilters} 
-          onReset={handleResetFilters} 
-        />
-
-        <div className="portfolio-header">
-          <h3>Asset Portfolio</h3>
-          <span className="portfolio-count">
-            Showing {isLoading ? '...' : filteredProperties.length} of {properties.length} Estates
-          </span>
-        </div>
-
-        {/* Card list with skeleton loader transition */}
-        <div className="properties-grid">
-          {isLoading ? (
-            Array(3).fill(0).map((_, i) => <SkeletonCard key={i} />)
-          ) : filteredProperties.length > 0 ? (
-            filteredProperties.map(prop => (
-              <PropertyCard 
-                key={prop.id} 
-                property={prop} 
-                isFavorite={favorites.includes(prop.id)}
-                onFavoriteToggle={handleFavoriteToggle}
-                onViewDetails={(p) => {
-                  addToast({
-                    id: Date.now(),
-                    type: 'success',
-                    title: 'Tour Requested',
-                    message: `Private viewing requested for ${p.name}. A representative will call you shortly.`
-                  });
-                }}
-              />
-            ))
-          ) : (
-            <div className="empty-state" style={{ gridColumn: '1 / -1' }}>
-              No luxury estates match the current parameters. Try resetting filters.
+            <div className="portfolio-header">
+              <h3>Asset Portfolio</h3>
+              <span className="portfolio-count">
+                Showing {isLoading ? '...' : filteredProperties.length} of {properties.length} Estates
+              </span>
             </div>
-          )}
-        </div>
 
-        {/* Dynamic Mortgage Estimator tool */}
-        <MortgageCalculator />
+            <div className="properties-grid">
+              {isLoading ? (
+                Array(3).fill(0).map((_, i) => <SkeletonCard key={i} />)
+              ) : filteredProperties.length > 0 ? (
+                filteredProperties.map(prop => (
+                  <PropertyCard 
+                    key={prop.id} 
+                    property={prop} 
+                    isFavorite={favorites.includes(prop.id)}
+                    onFavoriteToggle={handleFavoriteToggle}
+                    onViewDetails={(p) => {
+                      addToast({
+                        id: Date.now(),
+                        type: 'success',
+                        title: 'Tour Requested',
+                        message: `Private viewing requested for ${p.name}. A representative will call you shortly.`
+                      });
+                    }}
+                    addToast={addToast}
+                    setProperties={setProperties}
+                  />
+                ))
+              ) : (
+                <div className="empty-state" style={{ gridColumn: '1 / -1' }}>
+                  No luxury estates match the current parameters. Try resetting filters.
+                </div>
+              )}
+            </div>
 
-        {/* Signature VIP services */}
-        <ExclusiveServices />
+            <MortgageCalculator />
+          </>
+        )}
 
-        {/* Contact Inquiry Section */}
-        <ContactSection addToast={addToast} />
+        {currentPage === 'analytics' && (
+          <DashboardCharts />
+        )}
+
+        {currentPage === 'services' && (
+          <ExclusiveServices />
+        )}
+
+        {currentPage === 'contact' && (
+          <ContactSection addToast={addToast} />
+        )}
       </main>
+
+      {/* Mobile Bottom Navigation Bar */}
+      <div className="mobile-bottom-nav">
+        <button 
+          className={`mobile-nav-item ${currentPage === 'explorer' ? 'active' : ''}`}
+          onClick={() => setCurrentPage('explorer')}
+        >
+          <Compass size={20} />
+          <span>Explorer</span>
+        </button>
+        <button 
+          className={`mobile-nav-item ${currentPage === 'analytics' ? 'active' : ''}`}
+          onClick={() => setCurrentPage('analytics')}
+        >
+          <TrendingUp size={20} />
+          <span>Dashboard</span>
+        </button>
+        <button 
+          className={`mobile-nav-item ${currentPage === 'services' ? 'active' : ''}`}
+          onClick={() => setCurrentPage('services')}
+        >
+          <Briefcase size={20} />
+          <span>VIP</span>
+        </button>
+        <button 
+          className={`mobile-nav-item ${currentPage === 'contact' ? 'active' : ''}`}
+          onClick={() => setCurrentPage('contact')}
+        >
+          <Mail size={20} />
+          <span>Contact</span>
+        </button>
+      </div>
 
       {/* Floating Chat widget and toast container */}
       <ChatAssistant addToast={addToast} onFilterUpdate={handleFilterUpdateFromChat} />

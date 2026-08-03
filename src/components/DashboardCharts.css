@@ -247,3 +247,70 @@
     font-size: 0.7rem;
   }
 }
+
+/* Live Ticker Card Styling */
+.live-ticker-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.ticker-live-badge {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.5px;
+}
+
+.live-pulse {
+  width: 8px;
+  height: 8px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #ef4444;
+  display: inline-block;
+}
+
+.ticker-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.ticker-item {
+  border-left: 2px solid var(--border-color);
+  padding-left: 12px;
+  font-size: 0.8rem;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.ticker-item.bid {
+  border-color: var(--accent);
+}
+
+.ticker-item.tour {
+  border-color: var(--accent-secondary);
+}
+
+.ticker-item.price {
+  border-color: var(--success);
+}
+
+.ticker-time {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.ticker-text {
+  color: var(--text-primary);
+  margin-top: 2px;
+}

@@ -77,8 +77,66 @@
   text-align: center;
   padding: 80px 20px;
   background: var(--bg-card);
-  border: 1px dashed var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 20px;
   color: var(--text-secondary);
   font-size: 1.1rem;
+}
+
+/* Mobile Bottom Navigation Bar */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+  backdrop-filter: var(--glass-blur);
+  z-index: 998;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.mobile-nav-item {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 60px;
+  height: 50px;
+  transition: all var(--transition-fast);
+}
+
+.mobile-nav-item svg {
+  color: var(--text-secondary);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.mobile-nav-item:hover svg,
+.mobile-nav-item.active svg {
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.mobile-nav-item.active {
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex;
+  }
+  .main-content {
+    padding-bottom: 84px; /* Ensure content doesn't get hidden behind mobile bottom bar */
+  }
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MapPin, BedDouble, Bath, Maximize2, Heart } from 'lucide-react';
 import './PropertyCard.css';
 
-export function PropertyCard({ property, onFavoriteToggle, isFavorite, onViewDetails }) {
+export function PropertyCard({ property, onFavoriteToggle, isFavorite, onViewDetails, addToast, setProperties }) {
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e) => {
@@ -83,9 +83,33 @@ export function PropertyCard({ property, onFavoriteToggle, isFavorite, onViewDet
 
           <div className="card-footer">
             <div className="property-price">{formatPrice(property.price)}</div>
-            <button className="property-view-btn" onClick={() => onViewDetails(property)}>
-              Book Tour
-            </button>
+            <div style={{ display: 'flex', gap: '6px' }}>
+              <button className="property-view-btn" onClick={() => onViewDetails(property)}>
+                Tour
+              </button>
+              <button 
+                className="property-view-btn" 
+                style={{ background: 'var(--accent-gradient)', color: '#fff', borderColor: 'transparent' }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const bidAmount = 100000;
+                  setProperties(prev => prev.map(p => {
+                    if (p.id === property.id) {
+                      return { ...p, price: p.price + bidAmount };
+                    }
+                    return p;
+                  }));
+                  addToast({
+                    id: Date.now(),
+                    type: 'success',
+                    title: 'Live Bid Placed',
+                    message: `Successfully offered ${formatPrice(property.price + bidAmount)} on ${property.name}!`
+                  });
+                }}
+              >
+                Bid
+              </button>
+            </div>
           </div>
         </div>
       </div>

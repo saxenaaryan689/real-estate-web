@@ -2,12 +2,48 @@ import React from 'react';
 import { Sun, Moon, Bell, Heart, Home } from 'lucide-react';
 import './Navbar.css';
 
-export default function Navbar({ theme, toggleTheme, favoritesCount, notificationCount, onShowFavoritesOnly, showFavoritesOnly }) {
+export default function Navbar({ 
+  theme, 
+  toggleTheme, 
+  favoritesCount, 
+  notificationCount, 
+  onShowFavoritesOnly, 
+  showFavoritesOnly,
+  currentPage,
+  setCurrentPage
+}) {
   return (
     <nav className="navbar">
-      <div className="nav-brand">
+      <div className="nav-brand" onClick={() => setCurrentPage('explorer')}>
         <Home size={24} />
         <span className="brand-text">AETHERIA <span className="brand-text-suffix">LUXURY HOMES</span></span>
+      </div>
+
+      <div className="nav-links">
+        <button 
+          className={`nav-link ${currentPage === 'explorer' ? 'active' : ''}`}
+          onClick={() => setCurrentPage('explorer')}
+        >
+          Explorer
+        </button>
+        <button 
+          className={`nav-link ${currentPage === 'analytics' ? 'active' : ''}`}
+          onClick={() => setCurrentPage('analytics')}
+        >
+          Market Dashboard
+        </button>
+        <button 
+          className={`nav-link ${currentPage === 'services' ? 'active' : ''}`}
+          onClick={() => setCurrentPage('services')}
+        >
+          VIP Services
+        </button>
+        <button 
+          className={`nav-link ${currentPage === 'contact' ? 'active' : ''}`}
+          onClick={() => setCurrentPage('contact')}
+        >
+          Inquiries
+        </button>
       </div>
 
       <div className="nav-actions">
