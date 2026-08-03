@@ -1,0 +1,131 @@
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 10000;
+  max-width: 360px;
+  width: 100%;
+  pointer-events: none;
+}
+
+.toast-item {
+  pointer-events: auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  backdrop-filter: var(--glass-blur);
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-lg);
+  animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.toast-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--accent);
+}
+
+.toast-item.success::before {
+  background: var(--success);
+}
+
+.toast-item.info::before {
+  background: var(--accent-secondary);
+}
+
+.toast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+.toast-item.success .toast-icon {
+  color: var(--success);
+}
+
+.toast-item.info .toast-icon {
+  color: var(--accent-secondary);
+}
+
+.toast-content {
+  flex: 1;
+}
+
+.toast-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.toast-msg {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.toast-close:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+/* Toast Progress Bar */
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 4px;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.toast-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  width: 100%;
+  transform-origin: left;
+}
+
+.toast-item.success .toast-progress-fill {
+  background: var(--success);
+}
+
+.toast-item.info .toast-progress-fill {
+  background: var(--accent-secondary);
+}
+
+@keyframes shrinkWidth {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
